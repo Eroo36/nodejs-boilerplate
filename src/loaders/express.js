@@ -3,10 +3,8 @@ import cors from "cors";
 import compression from "compression";
 import morgan from "morgan";
 import helmet from "helmet";
-import { prefix } from "../configs/index.js";
+import { prefix, logger, jwtSecretKey } from "../configs/index.js";
 import { routes } from "../api/v1/index.js";
-import { logger } from "../configs/index.js";
-import { jwtSecretKey } from "../configs/index.js";
 
 export default (app) => {
   process.on("uncaughtException", async (error) => {
@@ -74,7 +72,7 @@ export default (app) => {
       resultCode = "00014";
       level = "Client Error";
     }
-    logger(resultCode, req?.user?._id ?? "", error.message, level, req);
+    // logger(resultCode, req?.user?._id ?? "", error.message, level, req);
     return res.json({
       resultMessage: {
         en: error.message,
